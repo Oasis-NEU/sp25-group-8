@@ -2,7 +2,10 @@ import { useState } from 'react'
 import './HomePage.css'
 import HomeButton from '../components/HomeButton.jsx'
 
+
 function HomePage() {
+   
+    
     return (
         <>
             <h1> Welcome to NUDailyPlanner! </h1>
