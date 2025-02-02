@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './HomePage.css'
+import HomeButton from '../components/HomeButton.jsx'
 
 
 function HomePage() {
@@ -11,6 +12,7 @@ function HomePage() {
             <p className="info">
                 Our goal is to help first-years plan their days in college!
             </p>
+            <HomeButton />
         </>
     )
 }
