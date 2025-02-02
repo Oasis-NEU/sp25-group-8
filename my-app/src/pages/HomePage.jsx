@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import './HomePage.css'
 
+
 function HomePage() {
+   
+    
     return (
         <>
             <h1> Welcome to NUDailyPlanner! </h1>
