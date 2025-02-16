@@ -1,3 +1,14 @@
+.home-container {
+    background-color: #f0f4f8; /* Light blue-gray background */
+    min-height: 100vh; /* Ensure it covers the full screen */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
 .info {
     color: red;
 
