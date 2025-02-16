@@ -1,6 +1,6 @@
 import * as React from 'react';
-
-export default function classInfo(){
+import { useState } from 'react';
+export default function ClassInfo(){
    const [inputValue, setInputValue] = useState('');
     return (
         <div>
