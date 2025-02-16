@@ -20,13 +20,14 @@ export default function classInfo(){
                 <option value = "East Village">EastVillage</option>
                 <option value = "EXP">EXP</option>
                 <option value = "ISEC">ISEC</option>
-                <option value = "Richards">EastVillage</option>
-                <option value = "Ell Hall">EastVillage</option>
-                <option value = "Churchill">EastVillage</option>
-                <option value = "West Village">EastVillage</option>
-                <option value = "Robinson">EastVillage</option>
-                <option value = "Mugar Life Sciences">EastVillage</option>
-                <option value = "International Village">EastVillage</option>
+                <option value = "Richards">Richards</option>
+                <option value = "Ell Hall">EllHall</option>
+                <option value = "Churchill">Churchill</option>
+                <option value = "West Village">WestVillage</option>
+                <option value = "Robinson">Robinson</option>
+                <option value = "Mugar Life Sciences">Mugar</option>
+                <option value = "International Village">International</option>
+                <option value = "Behrakis">Behrakis</option>
             </select>
           </label>
         </div>
