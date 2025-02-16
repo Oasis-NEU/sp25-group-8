@@ -14,9 +14,10 @@ function SchedulePage() {
             <AddButton message='Click here to add a Class' 
             onClick={() => setShowClassInfo(!showClassInfo)}/>
             {showClassInfo && <ClassInfo />}
-            <h1> Input your schedule here! </h1>
-            <addButton onClick={() => classInfo}/>
-            <ContainedButtons onClick={() => nav('/preferences')} />
+            <div>
+            <ContainedButtons message = 'Click here to go to Preferences Page' 
+            onClick={() => nav('/preferences')} />
+            </div>
         </>
 
     )
