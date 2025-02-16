@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import ContainedButtons from '../components/HomeButton.jsx'
+import ContainedButtons from '../components/ContainedButtons.jsx'
 import './SchedulePage.css'
 import AddButton from '../components/addButton.jsx'
 import ClassInfo from '../components/classInfo.jsx'
