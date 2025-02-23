@@ -5,7 +5,10 @@ import Stack from '@mui/material/Stack';
 export default function ContainedButtons({ message, onClick }) {
     return (
         <Stack direction="row" spacing={2}>
-            <Button variant="contained" href="#contained-buttons"> onClick={onClick}
+            <Button
+                variant="contained"
+                onClick={onClick}
+            >
                 {message}
             </Button>
         </Stack>
