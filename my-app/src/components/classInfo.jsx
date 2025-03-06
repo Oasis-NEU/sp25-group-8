@@ -1,10 +1,25 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { supabase } from "../supabaseClient";
 export default function ClassInfo(){
    const [startTime, setStartTime] = useState('');
    const [endTime, setEndTime] = useState('');
    const [location, setLocation] = useState('');
    const [user, setUser] = useState([]);
+
+   async function addUser(startTime, endTime, location) {
+    try {
+      const { data, error } = await supabase
+        .from("Users")
+        .insert({ class_time: startTime, class_endTime: endTime, class_location: "hello"})
+        .single();
+      if (error) throw error;
+      window.location.reload();
+    } catch (error) {
+      alert(error);
+      console.log(error);
+    }
+  }
     return (
         <div>
           <form>
@@ -43,5 +58,7 @@ export default function ClassInfo(){
           <option value="Behrakis">Behrakis</option>
             </select>
           </label>
+          <button onClick={() => addUser(startTime, endTime, location)}>Add Class</button>
         </div>
     )
+}
