@@ -7,11 +7,21 @@ export default function ClassInfo(){
    const [location, setLocation] = useState('');
    const [user, setUser] = useState([]);
 
+
+    // Function to ensure time is in "HH:MM:SS" format
+    const formatTime = (time) => {
+      return time.length === 5 ? `${time}:00` : time; // Adds ":00" if only HH:MM is present
+   };
+
+
    async function addUser(startTime, endTime, location) {
     try {
+      const formattedStartTime = formatTime(startTime);
+      const formattedEndTime = formatTime(endTime);
+
       const { data, error } = await supabase
         .from("Users")
-        .insert({ class_time: startTime, class_endTime: endTime, class_location: "hello"})
+        .insert({ class_time: formattedStartTime, class_endTime: formattedEndTime, class_location: location})
         .single();
       if (error) throw error;
       window.location.reload();
