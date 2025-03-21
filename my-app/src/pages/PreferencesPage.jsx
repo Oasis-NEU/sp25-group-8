@@ -62,7 +62,7 @@ function PreferencesPage() {
                </Card>
                <button onClick={() => addTask(name, duration)}>Add Task</button>
                <ContainedButtons
-                message='See your final Scheduele!'
+                message='See your final Schedule!'
                 onClick={() => nav('/final')} />
        </>
    );
