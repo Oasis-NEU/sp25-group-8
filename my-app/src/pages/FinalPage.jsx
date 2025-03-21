@@ -3,13 +3,14 @@ import { supabase } from "../supabaseClient";
 
 export default function DailySchedule() {
     const [schedule, setSchedule] = useState([]);
+    const [timeUntilNext, setTimeUntilNext] = useState("");
   
     useEffect(() => {
         async function fetchSchedule() {
             // Fetch classes
             const { data: Users, error: classError } = await supabase
               .from("Users")
-              .select("class_time, class_location, class_endTime")
+              .select("class_time, class_location, class_endTime, name")
               .order("class_time", { ascending: true });
         
             if (classError) console.error("Error fetching classes:", classError);
@@ -28,6 +29,24 @@ export default function DailySchedule() {
         }
         fetchSchedule();
     }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (schedule.length > 0) {
+                const now = new Date();
+                const currentTime = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+                
+                for (let event of schedule) {
+                    if (event.class_time > currentTime) {
+                        setTimeUntilNext(timeDifference(currentTime, event.class_time));
+                        break;
+                    }
+                }
+            }
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [schedule]);
   
     function generateSchedule(Users, Preferences) {
         let scheduledItems = [...Users];
@@ -43,14 +62,14 @@ export default function DailySchedule() {
                 let currentClass = scheduledItems[i];
                 let nextClass = scheduledItems[i + 1];
     
-                let gapStart = currentClass.class_endTime;
+                let gapStart = addTime(currentClass.class_endTime, 10); // Add 10-minute break
                 let gapEnd = nextClass.class_time;
     
                 if (timeDifference(gapStart, gapEnd) >= taskDuration) {
                     let taskStartTime = gapStart;
                     let taskEndTime = addTime(taskStartTime, taskDuration);
     
-                    scheduledItems.push({
+                    scheduledItems.splice(i + 1, 0, {
                         name: preference.name,
                         class_time: taskStartTime,
                         class_endTime: taskEndTime,
@@ -58,14 +77,14 @@ export default function DailySchedule() {
                     });
     
                     inserted = true;
-                    break;
+                    break; // Stop inserting more instances of this preference
                 }
             }
     
             // If no gap was found, try inserting after the last class of the day
             if (!inserted && scheduledItems.length > 0) {
                 let lastClass = scheduledItems[scheduledItems.length - 1];
-                let lastEndTime = lastClass.class_endTime;
+                let lastEndTime = addTime(lastClass.class_endTime, 10); // Add 10-minute break
                 let taskEndTime = addTime(lastEndTime, taskDuration);
     
                 if (timeDifference(lastEndTime, "23:59") >= taskDuration) {
@@ -77,10 +96,12 @@ export default function DailySchedule() {
                     });
                 }
             }
+    
+            // Re-sort after each insertion to maintain order
+            scheduledItems.sort((a, b) => timeToMinutes(a.class_time) - timeToMinutes(b.class_time));
         });
     
-        // Re-sort the schedule after adding preferences
-        return scheduledItems.sort((a, b) => timeToMinutes(a.class_time) - timeToMinutes(b.class_time));
+        return scheduledItems;
     }
     
     function timeDifference(start, end) {
@@ -110,6 +131,7 @@ export default function DailySchedule() {
     return (
       <div>
         <h2 className="text-2xl font-bold mb-4">Today's Schedule</h2>
+        <p className="text-lg font-semibold">Time until next event: {timeUntilNext} minutes</p>
         {schedule.length === 0 ? (
           <p>No events scheduled for today!</p>
         ) : (

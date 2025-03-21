@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { supabase } from "../supabaseClient";
+import TextField from '@mui/material/TextField';
+
 export default function ClassInfo(){
    const [startTime, setStartTime] = useState('');
    const [endTime, setEndTime] = useState('');
    const [location, setLocation] = useState('');
+   const [name, setName] = useState('');
    const [user, setUser] = useState([]);
 
 
@@ -14,14 +17,14 @@ export default function ClassInfo(){
    };
 
 
-   async function addUser(startTime, endTime, location) {
+   async function addUser(startTime, endTime, location, name) {
     try {
       const formattedStartTime = formatTime(startTime);
       const formattedEndTime = formatTime(endTime);
 
       const { data, error } = await supabase
         .from("Users")
-        .insert({ class_time: formattedStartTime, class_endTime: formattedEndTime, class_location: location})
+        .insert({ class_time: formattedStartTime, class_endTime: formattedEndTime, class_location: location, name:name})
         .single();
       if (error) throw error;
       window.location.reload();
@@ -68,7 +71,17 @@ export default function ClassInfo(){
           <option value="Behrakis">Behrakis</option>
             </select>
           </label>
-          <button onClick={() => addUser(startTime, endTime, location)}>Add Class</button>
+          <label>
+            What is the class name
+          <TextField
+             label="Class Name"
+             value={name}
+             onChange={(e) => setName(e.target.value)}
+             fullWidth
+            margin="normal"
+            />
+          </label> 
+          <button onClick={() => addUser(startTime, endTime, location, name)}>Add Class</button>
         </div>
     )
 }
