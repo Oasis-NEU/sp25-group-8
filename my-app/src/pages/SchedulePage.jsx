@@ -5,6 +5,7 @@ import AddButton from '../components/addButton.jsx';
 import ClassInfo from '../components/classInfo.jsx';
 import { useNavigate } from 'react-router-dom';
 
+
 function SchedulePage() {
     const [showClassInfo, setShowClassInfo] = useState(false);
     const nav = useNavigate();

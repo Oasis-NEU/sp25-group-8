@@ -37,7 +37,7 @@ export default function ClassInfo(){
         <div>
           <form>
             <label>
-                What time is your class?
+                What time is your class? 
                 <input
                 type = "time"
                 value = {startTime}
@@ -47,7 +47,7 @@ export default function ClassInfo(){
           </form>
           <form>
             <label>
-                What time does your class end?
+                What time does your class end? 
                 <input
                 type = "time"
                 value = {endTime}
@@ -56,7 +56,7 @@ export default function ClassInfo(){
             </label>
           </form>
           <label>
-            Where is your class?
+            Where is your class? 
             <select value={location} onChange={(e) => setLocation(e.target.value)}>
                 <option value="East Village">East Village</option>
           <option value="EXP">EXP</option>
